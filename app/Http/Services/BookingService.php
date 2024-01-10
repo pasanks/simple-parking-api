@@ -9,7 +9,8 @@ class BookingService
 {
     /**
      * Get available parking slots for a given date range.
-     * bookingID added as additional parameter so this function can be reused when updating a booking to check availability.// phpcs:ignore
+     * bookingID added as additional parameter so this function can be reused when updating a booking
+     * to check availability.// phpcs:ignore
      *
      *
      * @return array

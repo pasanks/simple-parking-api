@@ -57,11 +57,12 @@ For simplicity and uniformity, it is assumed that the start date and end date in
 
 ### Based on the requirements 
 - I created a simple pricing logic which can be found in the BookingService.php
-- For the API only dates are accepted (didn't consider time) - acceppted format YYYY-MM-DD (2024-01-02).
+- For the API only dates are accepted (didn't consider time) - accepted format YYYY-MM-DD (2024-01-02).
 
 - I created some basic tests for the two main controller and service didn't spend much time on tests.
 - Created a GitHub action workflow to run CodeSniffer to identify any code styling issues.
 - User authentication has not been implemented in this version(planning to use laravel passport). The decision was made due to time constraints, with a focus on delivering the core functionality and logic of the system.
+- To maintain clean and modular code, I used service layer design. Which separates the business logic from the controllers, promoting a more organized and maintainable codebase. And allowing for better testing and scalability.
 
 ### Error Handling
 
