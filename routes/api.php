@@ -24,4 +24,3 @@ Route::patch('/booking/update/{id}', [BookingController::class, 'update']);
 Route::patch('/booking/cancel/{id}', [BookingController::class, 'cancel']);
 Route::post('/booking/availability', [BookingController::class, 'checkAvailability']);
 Route::post('/booking/price', [BookingController::class, 'checkPricing']);
-

@@ -4,15 +4,16 @@ namespace App\Exceptions;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Response;
 use Illuminate\Session\TokenMismatchException;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Throwable;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-use Illuminate\Http\Response;
+
 class Handler extends ExceptionHandler
 {
     /**
@@ -51,12 +52,13 @@ class Handler extends ExceptionHandler
                 'message' => $exception->getMessage(),
                 'file' => $exception->getFile(),
                 'line' => $exception->getLine(),
-                'code' => $exception->getCode()
-            ]
+                'code' => $exception->getCode(),
+            ],
         ], $statusCode);
     }
 
-    protected  function determineStatusCode(\Throwable $exception) {
+    protected function determineStatusCode(\Throwable $exception)
+    {
         switch (true) {
             case $exception instanceof NotFoundHttpException:
                 return Response::HTTP_NOT_FOUND;
@@ -78,5 +80,4 @@ class Handler extends ExceptionHandler
                 return Response::HTTP_INTERNAL_SERVER_ERROR;
         }
     }
-
 }

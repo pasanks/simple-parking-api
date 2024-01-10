@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\DateRangeValidationRequest;
 use App\Http\Services\BookingService;
+
 class BookingController extends Controller
 {
     private BookingService $bookingService;
+
     private $startDate;
+
     private $endDate;
 
     public function __construct(BookingService $bookingService)
@@ -18,7 +21,6 @@ class BookingController extends Controller
     /**
      * Check parking availability for a given date range.
      *
-     * @param DateRangeValidationRequest $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -27,8 +29,8 @@ class BookingController extends Controller
         $this->getStartEndDateFromRequest($request);
 
         $data = [
-              'availability' => $this->bookingService->getAvailableSpaces($this->startDate, $this->endDate)
-          ];
+            'availability' => $this->bookingService->getAvailableSpaces($this->startDate, $this->endDate),
+        ];
 
         return $this->toResponseArray('Available Parking Slots.', $data);
     }
@@ -36,7 +38,6 @@ class BookingController extends Controller
     /**
      * Check parking availability for a given date range.
      *
-     * @param DateRangeValidationRequest $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -52,7 +53,6 @@ class BookingController extends Controller
     /**
      * Create a new booking for a given date range.
      *
-     * @param DateRangeValidationRequest $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -63,8 +63,8 @@ class BookingController extends Controller
         $booking = $this->bookingService->createBooking($this->startDate, $this->endDate);
 
         return $this->toResponseArray(
-             $booking ? 'Booking successful' : 'No available parking spaces for the requested date range',
-             $booking,
+            $booking ? 'Booking successful' : 'No available parking spaces for the requested date range',
+            $booking,
             $booking ? 201 : 200
         );
     }
@@ -72,8 +72,6 @@ class BookingController extends Controller
     /**
      * Amend already created booking.
      *
-     * @param DateRangeValidationRequest $request
-     * @param $id
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -92,13 +90,13 @@ class BookingController extends Controller
     /**
      * Cancel a booking.
      *
-     * @param $id
      *
      * @return \Illuminate\Http\JsonResponse
      */
     public function cancel($id)
     {
         $booking = $this->bookingService->cancelBooking($id);
+
         return $this->toResponseArray(
             $booking ? 'Booking cancelled successfully' : 'An error occurred'
         );
@@ -107,9 +105,6 @@ class BookingController extends Controller
     /**
      * Transforms response data into a standardized JSON format for API responses.
      *
-     * @param $message
-     * @param $data
-     * @param $status
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -117,14 +112,13 @@ class BookingController extends Controller
     {
         return response()->json([
             'message' => $message,
-            'data' => $data
+            'data' => $data,
         ], $status);
     }
 
     /**
      * Set start date and end date from the validated request.
      *
-     * @param $request
      *
      * @return void
      */

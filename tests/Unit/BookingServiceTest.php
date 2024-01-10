@@ -8,7 +8,9 @@ use Tests\TestCase;
 class BookingServiceTest extends TestCase
 {
     use RefreshDatabase;
+
     protected $bookingService;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -65,7 +67,7 @@ class BookingServiceTest extends TestCase
                 '2024-07-06' => 17.00,
                 '2024-07-07' => 17.00,
                 '2024-07-08' => 12.00,
-                ]
+            ],
         ], $priceDetails);
     }
 

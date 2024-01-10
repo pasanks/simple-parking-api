@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Services\BookingService;
-use App\Models\Booking;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
