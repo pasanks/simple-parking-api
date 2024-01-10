@@ -9,15 +9,15 @@ class Booking extends Model
 {
     use HasFactory;
 
-    const BookingCapacity = 10;
+    public const BOOKINGCAPACITY = 10;
 
-    const BookingBasePrice = 10.00;
+    public const BOOKINGBASEPRICE = 10.00;
 
-    const BookingWeekendPrice = 15.00;
+    public const BOOKINGWEEKENDPRICE = 15.00;
 
-    const BookingStatusActive = 'active';
+    public const BOOKINGSTATUSACTIVE = 'active';
 
-    const BookingStatusCancelled = 'cancelled';
+    public const BOOKINGSTATUSCANCELLED = 'cancelled';
 
     protected $fillable = ['start_date', 'end_date', 'status', 'booking_fee'];
 }

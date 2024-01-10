@@ -9,7 +9,7 @@ class BookingService
 {
     /**
      * Get available parking slots for a given date range.
-     * bookingID added as additional parameter so this function can be reused when updating a booking to check availability.
+     * bookingID added as additional parameter so this function can be reused when updating a booking to check availability.// phpcs:ignore
      *
      *
      * @return array
@@ -19,7 +19,7 @@ class BookingService
         $availableSpaces = [];
 
         // Iterate through each date in the given range
-        for ($checkDate = $startDate; $checkDate <= $endDate; $checkDate = date('Y-m-d', strtotime($checkDate.' +1 day'))) {
+        for ($checkDate = $startDate; $checkDate <= $endDate; $checkDate = date('Y-m-d', strtotime($checkDate . ' +1 day'))) {// phpcs:ignore
             // Count the number of available parking spaces for the check date
             $bookedSlots = Booking::where('start_date', '<=', $checkDate)
                 ->where('end_date', '>=', $checkDate)
@@ -27,8 +27,7 @@ class BookingService
                     $query->where('id', '!=', $bookingId);
                 })->count();
 
-            // Calculate the available slots for the current date
-            $availableSlots = Booking::BookingCapacity - $bookedSlots;
+            $availableSlots = Booking::BOOKINGCAPACITY - $bookedSlots;
 
             // Ensure the available slots are not negative
             $availableSpaces[$checkDate] = max(0, $availableSlots);
@@ -65,7 +64,7 @@ class BookingService
             $isSummer = in_array($checkDate->format('m'), $summerMonths);
 
             // Calculate price based on weekday or weekend and summer pricing
-            $pricePerDay = $isWeekend ? Booking::BookingWeekendPrice : Booking::BookingBasePrice;
+            $pricePerDay = $isWeekend ? Booking::BOOKINGWEEKENDPRICE : Booking::BOOKINGBASEPRICE;
             $pricePerDay += $isSummer ? 2 : 0;
 
             $days[$checkDate->toDateString()] = number_format($pricePerDay, 2, '.', ',');
@@ -138,7 +137,7 @@ class BookingService
     {
         $booking = Booking::find($bookingId);
         $booking->update([
-            'status' => Booking::BookingStatusCancelled,
+            'status' => Booking::BOOKINGSTATUSCANCELLED,
         ]);
 
         return $booking->fresh();

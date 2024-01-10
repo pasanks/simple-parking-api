@@ -102,7 +102,7 @@ class BookingServiceTest extends TestCase
 
         $cancelledBooking = $this->bookingService->cancelBooking($booking->id);
         $this->assertInstanceOf(Booking::class, $cancelledBooking);
-        $this->assertEquals(Booking::BookingStatusCancelled, $cancelledBooking->status);
+        $this->assertEquals(Booking::BOOKINGSTATUSCANCELLED, $cancelledBooking->status);
 
     }
 }
